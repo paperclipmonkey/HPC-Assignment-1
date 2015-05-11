@@ -1,0 +1,15 @@
+How the algorithm scales Without saving intermediate timesteps
+nTs		Seconds
+25000 = 3s
+50000 = 4s
+100000 = 8s
+150000 = 13s
+200000 = 17s
+250000 = 22s
+500000 = 66s
+1000000 = 133s
+
+428K of memory
+95% - 100% of a single processor
+
+We altered the number of time steps in the program and found that the program scales in a linear fashion. Errors accounted in the run output time can be attributed to running the tests on a laptop machine and not averaging out runtime variance with multiple test runs. The use of RAM memory didn't change whilst running the application, staying at 428K of memory for every test. The application had nearly full use of one CPU core for the lifetime of its execution. If a 100 x 100 grid of doubles is used as the grid then an output file will be approximately 128kb. Running the program 25,000 times whilst outputting intermediate CSV files would use 3.2Gb of disk space on the system. This would also most likely be a bottleneck in the system as the calculations only take 3s but IO is usually a lot slower, taking minutes to write that much data and to update the file system index. The program takes 66 seconds to perform 500k time steps on a relatively new Macbook pro but the program will happily run for longer than this meaning reasonable program execution for a desktop machine is probably somewhere around 1.5 million time steps (3 minutes) just because of convenience.
